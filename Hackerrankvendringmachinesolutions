@@ -1,0 +1,24 @@
+class Solution
+{
+public:
+    bool helper(Node* root, int x){
+        if(!root) return false;
+        if(root->data == x) return true;
+        return (root->data>x)? helper(root->left,x): helper(root->right,x);
+        
+    }
+    int countPairs(Node* root1, Node* root2, int x)
+    {
+        queue<Node*> q;
+        q.push(root1);
+        int cnt = 0;
+        while(!q.empty()){
+            auto node = q.front();
+            q.pop();
+            if(helper(root2, x-node->data)) cnt++;
+            if(node->left) q.push(node->left);
+            if(node->right) q.push(node->right);
+        }
+        return cnt;
+    }
+};
